@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <partial name="~/PartialView/_ProductListPartialView.cshtml" model="@ViewBag.productListPartialViewModel" />
+    </div>
+    <div class="col-md-4">
+        @await Component.InvokeAsync("ProductList", new { type = 1 })@*1.yol*@
+    </div>
+    <div class="col-md-4">
+        <vc:product-list type="2"></vc:product-list>@*2.yol viewimport kısmına tag ekleyerek yapılıyor*@
+    </div>
+</div>

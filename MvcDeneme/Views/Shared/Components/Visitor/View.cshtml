@@ -1,0 +1,13 @@
+﻿@model Visitor
+
+<div class="row">
+    <div class="col border pt-2 pb-2">
+        <form asp-controller="Home" asp-action="SaveComment" method="post">
+            <input class="form-control" asp-for="Name" placeholder="Adınız" />
+            <br />
+            <textarea class="form-control" asp-for="Commment" placeholder="Yorumunuz"></textarea>
+            <br />
+            <button type="submit" class="btn btn-success">Kaydet</button>
+        </form>
+    </div>
+</div>

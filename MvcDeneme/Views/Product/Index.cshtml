@@ -1,0 +1,59 @@
+﻿@model List<ProductViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    if (TempData["status"] != null)
+    {
+        <div class="alert alert-info" role="alert">
+            @TempData["status"]
+        </div>
+    }
+}
+<h1>Index</h1>
+<table class="table text-center">
+    <tr>
+        <th>#</th>
+        <th>Resim</th>
+        <th>Kategori</th>
+        <th>Ad</th>
+        <th>Renk</th>
+        <th>Fiyat</th>
+        <th>Durum</th>
+        <th>Geçerlilik</th>
+        <th>Yayınlanma Tarihi</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>
+                    @if (!String.IsNullOrEmpty(item.ImagePath))
+                    {
+                        <img height="100" width="100" src="/images/@(item.ImagePath)" />
+                    }
+                    else
+                    {
+                        <img height="100" width="100" src="/images/noimage.jpg" />
+                    }
+                </td>
+                <td>@item.CategoryName</td>
+                <td>@item.UrunAdı</td>
+                <td>@item.Renk</td>
+                <td>@item.Fiyat</td>
+                <td>@(item.isActive ? "Evet":"Hayır")</td>
+                <td>@item.Expire</td>
+                <td>@item.PublishDate</td>
+                <td><a href="/Product/Delete/@item.Id">Sil</a></td> @*1.Yöntem*@
+                <td><a asp-controller="Product" asp-action="Update" asp-route-id="@item.Id">Güncelle</a></td> @*2.Yöntem*@
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="/Product/Add" class="btn btn-primary">Ürün Ekle</a>

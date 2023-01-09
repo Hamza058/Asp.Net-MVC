@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Update</h1>
+
+@model ProductViewModel
+
+<form asp-controller="Product" asp-action="Update" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="ImagePath" />
+    @*böyle ilgili controller daki method a ekleme yapılır*@
+    <img height="100" width="100" src="@(String.IsNullOrEmpty(Model.ImagePath) ? "/images/noimage.jpg" : "/images/"+Model.ImagePath)" />
+    <input class="form-control mt-1 mb-1" asp-for="UrunAdı" placeholder="Ürün Adı" />
+    <select class="form-control mb-1" asp-for="Renk" asp-items="@ViewBag.ColorSelect"></select>
+    <input type="text" class="form-control mb-3" asp-for="Fiyat" placeholder="Fiyat" />
+    <div class="form-check mb-2">
+        <input class="form-check-input" asp-for="isActive" />
+        <label class="form-check-label" for="flexCheckDefault">
+            Aktif Edilsin mi ?
+        </label>
+    </div>
+    @*List Hali. input id ile label for aynı yapılırsa label a tıklandığı zaman input a tıklanmış olur. asp-for ile de yapabiliriz.
+            @foreach (var item in ViewBag.Expire as List<int>)
+        {
+            <div class="form-check">
+                <input class="form-check-input" type="radio" asp-for="Expire" value="@item">
+                <label class="form-check-label" for="flexRadioDefault1">
+                    @item
+                </label>
+            </div>
+        }
+    *@
+    <span>Ürün Satışta Kalma Süresi</span>
+    @foreach (var item in ViewBag.Expire as Dictionary<string, int>)
+    {
+        <div class="form-check mb-2">
+            <input class="form-check-input" id="@(item.Value)Radio" type="radio" asp-for="Expire" value="@item.Value">
+            <label class="form-check-label" for="@(item.Value)Radio">
+                @item.Key
+            </label>
+        </div>
+    }
+    <span>Ürün Yayınlama Tarihi</span>
+    <input class="form-control" asp-for="PublishDate" />
+    <select class="form-control mb-3" asp-for="CategoryId" asp-items="@ViewBag.category"></select>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+        </div>
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" asp-for="Image" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success mt-2">Kaydet</button>
+</form>
+<br />

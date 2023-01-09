@@ -1,0 +1,11 @@
+﻿@{
+    ViewData["Title"] = "Privacy Policy";
+    var product = new Product() { Id = 1, UrunAdı = "asd", Renk = "Sarı" };
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Use this page to detail your site's privacy policy.</p>
+<product-show product="@product"></product-show>
+
+<img src="~/images/car.jpg" width="200"/>
+<image-thumbnail image-src="/images/car.jpg"></image-thumbnail>
